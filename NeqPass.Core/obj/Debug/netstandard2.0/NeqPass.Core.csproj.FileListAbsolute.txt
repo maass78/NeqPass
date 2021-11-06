@@ -1,0 +1,10 @@
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\bin\Debug\netstandard2.0\NeqPass.Core.deps.json
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\bin\Debug\netstandard2.0\NeqPass.Core.dll
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\bin\Debug\netstandard2.0\NeqPass.Core.pdb
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.AssemblyInfoInputs.cache
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.AssemblyInfo.cs
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.dll
+C:\Users\admin\source\repos\NeqPass\NeqPass.Core\obj\Debug\netstandard2.0\NeqPass.Core.pdb

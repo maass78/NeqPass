@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush Color="#202122" x:Key="Primary"/>
+    <SolidColorBrush Color="#0F0F0F" x:Key="Background"/>
+    <SolidColorBrush Color="#313233" x:Key="Selected"/>
+    <SolidColorBrush Color="#28292a" x:Key="MouseOver"/>
+    <SolidColorBrush Color="#2c2d2e" x:Key="TitleBar"/>
+    <SolidColorBrush Color="#aaa" x:Key="TextSecondary"/>
+    <SolidColorBrush Color="#C4C8CC" x:Key="TextPrimary"/>
+
+</ResourceDictionary>

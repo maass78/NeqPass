@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "CchQvFg7o37NANUsZN8GXBSklkmXxNs9IYu6nKwkLOIwWnK/swUWUQmMl2BvPoh+sLlj7WgFrGNOn+DBOBg7vw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\admin\\source\\repos\\NeqPass\\NeqPass.Core\\NeqPass.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\leaf.xnet\\5.2.10\\leaf.xnet.5.2.10.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\maass78.usefulextensions\\1.0.7\\maass78.usefulextensions.1.0.7.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

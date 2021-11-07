@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:assist="clr-namespace:MaterialControls.Assist">
 
+   
+    
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
     </Style>
@@ -11,6 +13,7 @@
 
         <Style.Setters>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
             <Setter Property="Template">
                 
                 <Setter.Value>
@@ -22,21 +25,10 @@
                             <Grid VerticalAlignment="Stretch" 
                               HorizontalAlignment="Stretch">
 
-                                <TextBox Margin="0"
-                                     Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=Default, UpdateSourceTrigger=PropertyChanged}"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
-                                     AcceptsReturn="{Binding Path=AcceptsReturn, RelativeSource={RelativeSource TemplatedParent}, Mode=Default}"
-                                     MinLines="{Binding Path=MinLines, RelativeSource={RelativeSource TemplatedParent}, Mode=Default}"
-                                     AcceptsTab="{Binding Path=AcceptsTab, RelativeSource={RelativeSource TemplatedParent}, Mode=Default}"
-                                     TextWrapping="{Binding Path=TextWrapping, RelativeSource={RelativeSource TemplatedParent}, Mode=Default}"
-                                     FontFamily="{Binding Path=FontFamily, RelativeSource={RelativeSource TemplatedParent}, Mode=Default}"
-                                     Padding="5"
-                                     Foreground="{TemplateBinding Foreground}"
-                                     x:Name="textBox"
-                                     CaretBrush="#fff"/>
+                                <ScrollViewer x:Name="PART_ContentHost"
+                                  Focusable="false"
+                                  HorizontalScrollBarVisibility="Hidden"
+                                  VerticalScrollBarVisibility="Hidden"/>
 
                                 <TextBlock IsHitTestVisible="False"
                                        Text="{Binding Path=(assist:HintAssist.HintText), RelativeSource={RelativeSource TemplatedParent}}"
@@ -51,7 +43,7 @@
                                     <TextBlock.Style>
                                         <Style TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Text, ElementName=textBox}" Value="">
+                                                <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
                                                     <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -63,9 +55,22 @@
 
                             </Grid>
                         </Border>
-                        
                     </ControlTemplate>
+                    
+                   
+                    
                 </Setter.Value>
+            </Setter>
+
+            <Setter Property="ContextMenu">
+                <Setter.Value>
+                    <ContextMenu Style="{StaticResource MaterialContextMenu}">
+                        <MenuItem Command="Cut" Style="{StaticResource MaterialMenuItem}"/>
+                        <MenuItem Command="Copy" Style="{StaticResource MaterialMenuItem}"/>
+                        <MenuItem Command="Paste" Style="{StaticResource MaterialMenuItem}"/>
+                    </ContextMenu>
+                </Setter.Value>
+                
             </Setter>
 
             <Setter Property="Background" Value="#303132"/>
@@ -84,5 +89,7 @@
         </Style.Triggers>
         
     </Style>
+
     
+
 </ResourceDictionary>

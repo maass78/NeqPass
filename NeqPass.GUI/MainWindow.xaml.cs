@@ -29,7 +29,6 @@ namespace NeqPass.GUI
 
             InitializeComponent();
             Load();
-            new WindowResizer(this);
             #region Events
             closeButton.Click += (s, e) => Close();
             minimizeButton.Click += (s, e) => WindowState = WindowState.Minimized;
@@ -62,6 +61,7 @@ namespace NeqPass.GUI
                 }
             };
             
+            buttonPasswordGenerator.Click += (s, e) => ShowPage(new PasswordGeneratorPage());
             buttonSettings.Click += (s, e) => ShowPage(new SettingsPage());
 
             buttonLock.Click += (s, e) =>
@@ -131,8 +131,13 @@ namespace NeqPass.GUI
                 {
                     _fileName = saveFile.FileName;
                     _password = pass;
+
+                    DataContext = null;
+                    Entries = null;
+
                     Entries = new ObservableCollection<EntryModel>();
                     DataContext = this;
+
                     Entries.CollectionChanged += (a, b) => Save();
                     
                     if (savePath)
@@ -156,6 +161,7 @@ namespace NeqPass.GUI
             if (!File.Exists(fileName))
             {
                 ShowStartPage();
+                return;
             }
 
             var passwordPage = new EnterPasswordPage(fileName, false);
@@ -168,8 +174,13 @@ namespace NeqPass.GUI
                 {
                     _password = pass;
                     _fileName = fileName;
+
+                    DataContext = null;
+                    Entries = null;
+
                     Entries = ModelConverter.Convert(entries);
                     DataContext = this;
+
                     Entries.CollectionChanged += (a, b) => Save();
                     ShowPage(null);
                     buttonHidePage.Visibility = Visibility.Visible;
@@ -359,10 +370,12 @@ namespace NeqPass.GUI
             MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void Save()
+        private async void Save()
         {
+            //textStatus.Text = "Сохранение...";
             EntrySaver.Save(_fileName, ModelConverter.ConvertToSave(Entries), _password);
-            //MessageBox.Show("Saving...");
+            //await Task.Delay(100);
+            //textStatus.Text = "";
         }
     }
 }

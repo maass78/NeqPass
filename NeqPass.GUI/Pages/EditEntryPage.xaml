@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeqPass.GUI.Pages"
+        xmlns:hint="clr-namespace:MaterialControls.Assist"
         mc:Ignorable="d"
-        Title="EditEntryPage">
+        Title="EditEntryPage"
+        FocusManager.FocusedElement="{Binding ElementName=textBoxName}">
 
     <StackPanel>
         <Border Background="{StaticResource Primary}" 
@@ -28,7 +30,9 @@
                                 HorizontalAlignment="Stretch"
                                 x:Name="textBoxName"
                                 IsReadOnly="{Binding ElementName=checkBoxEditName, Path=IsChecked, Mode=OneWay}"
-                                MaxWidth="200"/>
+                                MaxWidth="200"
+                                hint:HintAssist.HintText="Введите название записи"
+                                TabIndex="0"/>
                         <CheckBox x:Name="checkBoxEditName"
                                 Style="{StaticResource EditCheckBox}"
                                 HorizontalAlignment="Right"
@@ -47,7 +51,9 @@
                                 HorizontalAlignment="Stretch"
                                 Margin="0 0 30 0"
                                 MinWidth="50"
-                                MaxWidth="200"/>
+                                MaxWidth="200"
+                                hint:HintAssist.HintText="Введите url-сайта"
+                                 TabIndex="1"/>
                         <CheckBox x:Name="checkBoxEditUrl"
                                 Style="{StaticResource EditCheckBox}"
                                 HorizontalAlignment="Right"
@@ -69,7 +75,9 @@
                                 AcceptsReturn="True"
                                 AcceptsTab="True"
                                 TextWrapping="Wrap"
-                                Margin="0 0 30 0"/>
+                                Margin="0 0 30 0"
+                                 hint:HintAssist.HintText="Введите комментарий"
+                                 TabIndex="2"/>
                         <CheckBox x:Name="checkBoxEditComment"
                                 Style="{StaticResource EditCheckBox}"
                                 HorizontalAlignment="Right"

@@ -22,8 +22,6 @@ namespace NeqPass.GUI.Pages
             };
 
             textPassword.KeyDown += OnKeyDown;
-            //KeyDown += OnKeyDown;
-
             buttonBack.Click += (s, e) => BackClicked?.Invoke();
 
             if (!isNew)
@@ -34,7 +32,7 @@ namespace NeqPass.GUI.Pages
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.Key == Key.Return || e.Key == Key.Enter))
+            if (e.Key == Key.Return || e.Key == Key.Enter)
             {
                 ConfrimClicked?.Invoke(textPassword.Text);
             }

@@ -30,13 +30,16 @@ namespace NeqPass.GUI.Pages
                 if (add)
                 {
                     buttonAccept.Visibility = Visibility.Visible;
-                    checkBoxEditName.IsChecked = false;
+                    checkBoxEditComment.IsChecked = checkBoxEditName.IsChecked = checkBoxEditUrl.IsChecked = false;
                     textBoxName.Focus();
-                    textBoxName.SelectAll();
                 }
             };
 
-            buttonAccept.Click += (s, e) => Closed?.Invoke();
+            buttonAccept.Click += (s, e) => 
+            {
+                checkBoxEditComment.IsChecked = checkBoxEditName.IsChecked = checkBoxEditUrl.IsChecked = true; 
+                Closed?.Invoke();
+            };
         }
 
         private void Subscribe(bool value)

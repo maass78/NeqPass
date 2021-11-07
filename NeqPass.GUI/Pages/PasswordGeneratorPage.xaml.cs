@@ -1,28 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UsefulExtensions;
 
 namespace NeqPass.GUI.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для PasswordGeneratorPage.xaml
-    /// </summary>
     public partial class PasswordGeneratorPage : Page
     {
+        private static readonly Random _random = new Random();
+        private static readonly string[] _specialSymbols = new string[]
+        {
+            "!",
+            ".",
+            ",",
+            ";",
+            "@",
+            "%",
+            "$",
+            "#",
+            "*",
+        };
+
         public PasswordGeneratorPage()
         {
             InitializeComponent();
+            buttonGenerate.Click += (s, e) =>
+            {
+                string result = RandomStringGenerator.AllSymbolsGenerator.Generate(10);
+
+                result = result.Insert(_random.Next(0, result.Length), _specialSymbols[_random.Next(_specialSymbols.Length)]);
+
+                textPassword.Text = result;
+            };
+
+            buttonCopy.Click += (s, e) =>
+            {
+                if (!string.IsNullOrWhiteSpace(textPassword.Text))
+                    Clipboard.SetText(textPassword.Text);
+            };
         }
     }
 }

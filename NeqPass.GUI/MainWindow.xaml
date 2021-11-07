@@ -8,13 +8,11 @@
         xmlns:dd="urn:gong-wpf-dragdrop" 
         xmlns:shell="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
         mc:Ignorable="d"
-        Title="NeqPass" MinHeight="200" Height="600" Width="800" MinWidth="300" 
+        Title="NeqPass" MinHeight="400" Height="600" Width="800" MinWidth="400" 
         WindowStyle="SingleBorderWindow"
         Icon="/Icons/icon.png" ResizeMode="CanResize" AllowsTransparency="False">
     
     <Window.Resources>
-
-
         <local:IconConverter x:Key="iconConverter"/>
 
         <ControlTemplate x:Key="ChromeButtons" TargetType="{x:Type Button}">
@@ -67,7 +65,8 @@
                       CornerRadius="5" 
                       CaptionHeight="20" 
                       UseAeroCaptionButtons="False"
-                      ResizeBorderThickness="7"/>
+                      ResizeBorderThickness="7">
+        </WindowChrome>
     </WindowChrome.WindowChrome>
 
     <Grid Background="{StaticResource Background}" 
@@ -307,6 +306,12 @@
                         </ListBox.ItemTemplate>
 
                     </ListBox>
+
+                    <TextBlock x:Name="textStatus"
+                               Style="{StaticResource Subtitle}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom"
+                               Margin="2.5"/>
                 </Grid>
             </Border>
 

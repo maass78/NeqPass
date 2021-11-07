@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CchQvFg7o37NANUsZN8GXBSklkmXxNs9IYu6nKwkLOIwWnK/swUWUQmMl2BvPoh+sLlj7WgFrGNOn+DBOBg7vw==",
+  "dgSpecHash": "R1Wf54W4zuhObNZETcTvMsMxgVWomdaNqBOOeV18aTr/XJEvl54FvNmlGzI1ho5NYsrUktv2lZksUwZwfkOxQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\source\\repos\\NeqPass\\NeqPass.Core\\NeqPass.Core.csproj",
+  "projectFilePath": "C:\\Users\\admin\\source\\git\\NeqPass\\NeqPass.Core\\NeqPass.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\leaf.xnet\\5.2.10\\leaf.xnet.5.2.10.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\maass78.usefulextensions\\1.0.7\\maass78.usefulextensions.1.0.7.nupkg.sha512",

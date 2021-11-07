@@ -19,7 +19,6 @@
             VerticalAlignment="Center">
         <Grid>
 
-
             <StackPanel>
 
                 <TextBlock Text="Настройки"
@@ -53,28 +52,6 @@
                          hint:HintAssist.HintText="Введите путь"/>
 
             </StackPanel>
-            
-           
-
-            <!--<StackPanel Grid.Column="0">
-
-                <RadioButton x:Name="radioHome"
-                         IsChecked="True"
-                         Content="Управление"
-                         Height="40"
-                         Style="{StaticResource MaterialRadioButton}"/>
-
-                <RadioButton x:Name="radioStats"
-                         Content="Статистика"
-                         Height="40"
-                         Style="{StaticResource MaterialRadioButton}"/>
-
-                <RadioButton x:Name="radioAbout"
-                         Content="О программе"
-                         Height="40"
-                         Style="{StaticResource MaterialRadioButton}"/>
-
-            </StackPanel>-->
         </Grid>
     </Border>
 </Page>

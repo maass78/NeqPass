@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace NeqPass.GUI.Types
@@ -12,6 +13,9 @@ namespace NeqPass.GUI.Types
         public bool OpenInMinimized { get; set; }
         public bool SavePath { get; set; }
         public string SavedPath { get; set; }
+        
+        public bool AutoBlock { get; set; }
+        public TimeSpan AutoBlockDuration { get; set; }
 
         public static Settings Current;
 
@@ -23,7 +27,9 @@ namespace NeqPass.GUI.Types
                 {
                     OpenInMinimized = false,
                     SavePath = false,
-                    SavedPath = "passwords.json",
+                    SavedPath = "",
+                    AutoBlock = false,
+                    AutoBlockDuration = TimeSpan.MaxValue
                 };
 
                 lock (_lockObj)

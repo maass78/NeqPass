@@ -51,6 +51,25 @@
                          Margin="20 5 0 0"
                          hint:HintAssist.HintText="Введите путь"/>
 
+
+                <CheckBox x:Name="checkBoxAutoLock"
+                      Content="Блокировать если окно неактивно"
+                      IsChecked="False"
+                      Margin="0 10 0 0"
+                      Style="{StaticResource MaterialCheckBox}"
+                      ToolTip="Если окно было в свернутом режиме "/>
+
+                <TextBlock Text="Блокировать после"
+                           Style="{StaticResource Subtitle}"
+                           FontSize="10"
+                           Margin="20 10 0 0"/>
+
+                <ComboBox x:Name="comboBoxAutoLockDuration"
+                          Style="{StaticResource MaterialComboBox}"
+                          Margin="20 5 0 0"
+                          Width="100"
+                          HorizontalAlignment="Left"/>
+
             </StackPanel>
         </Grid>
     </Border>

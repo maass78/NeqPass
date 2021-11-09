@@ -81,9 +81,8 @@
     </Compile>
     <Compile Include="Styles\HintAssist.cs" />
     <Compile Include="Types\Settings.cs" />
-    <Compile Include="Utilities\TimeoutedWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Utilities\RandomStringGenerator.cs" />
+    <Compile Include="Utilities\TimeoutedWebClient.cs" />
     <Compile Include="WindowResizer.cs" />
     <Page Include="Controls\AccountControl.xaml">
       <SubType>Designer</SubType>
@@ -219,9 +218,6 @@
   <ItemGroup>
     <PackageReference Include="gong-wpf-dragdrop">
       <Version>2.4.3</Version>
-    </PackageReference>
-    <PackageReference Include="maass78.UsefulExtensions">
-      <Version>1.0.7</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

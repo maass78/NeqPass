@@ -20,6 +20,7 @@ namespace NeqPass.GUI
         private bool _pageShowed => frame.Content != null;
         private string _fileName;
         private string _password;
+        private DateTime _lastActivated;
 
         public ObservableCollection<EntryModel> Entries { get; set; }
 
@@ -78,6 +79,30 @@ namespace NeqPass.GUI
 
             if (Settings.Current.OpenInMinimized)
                 mainGrid.ColumnDefinitions[0].Width = new GridLength(45, GridUnitType.Pixel);
+
+            Activated += (s, e) =>
+            {
+                if (Settings.Current.AutoBlock && Entries != null && _fileName != null)
+                {
+                    if (_lastActivated + Settings.Current.AutoBlockDuration < DateTime.UtcNow)
+                    {
+                        buttonHidePage.Visibility = Visibility.Collapsed;
+
+                        DataContext = null;
+                        Entries = null;
+                        _password = null;
+
+                        OpenFile(_fileName, false);
+                    }
+                }
+            };
+
+
+            Deactivated += (s, e) =>
+            {
+                if (Settings.Current.AutoBlock)
+                    _lastActivated = DateTime.UtcNow;
+            };
         }
 
         private void Load()

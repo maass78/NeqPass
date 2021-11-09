@@ -53,10 +53,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
-            },
-            "maass78.UsefulExtensions": {
-              "target": "Package",
-              "version": "[1.0.7, )"
             }
           },
           "imports": [

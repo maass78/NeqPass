@@ -46,7 +46,7 @@ namespace NeqPass.GUI
             buttonEditEntry.Click += (s, e) => ShowPage(new EditEntryPage((EntryModel)list.SelectedItem, false));
             buttonHidePage.Click += (s, e) => ShowPage(null);
 
-            buttonCreate.Click += (s, e) => { buttonHidePage.Visibility = Visibility.Collapsed; CreateNewFile(false); };
+            buttonCreate.Click += (s, e) => { buttonHidePage.Visibility = Visibility.Collapsed; CreateNewFile(false, true); };
             buttonOpen.Click += (s, e) => 
             { 
                 buttonHidePage.Visibility = Visibility.Collapsed;
@@ -60,10 +60,12 @@ namespace NeqPass.GUI
                 {
                     OpenFile(openFileDialog.FileName, false);
                 }
+
+                buttonHidePage.Visibility = Visibility.Visible;
             };
             
             buttonPasswordGenerator.Click += (s, e) => ShowPage(new PasswordGeneratorPage());
-            buttonSettings.Click += (s, e) => ShowPage(new SettingsPage());
+            buttonSettings.Click += (s, e) => ShowPage(new SettingsPage(Entries));
 
             buttonLock.Click += (s, e) =>
             {
@@ -137,7 +139,7 @@ namespace NeqPass.GUI
             ShowPage(startPage);
         }
 
-        private void CreateNewFile(bool savePath)
+        private void CreateNewFile(bool savePath, bool showHideButtonOnCancel = false)
         {
             SaveFileDialog saveFile = new SaveFileDialog
             {
@@ -178,6 +180,10 @@ namespace NeqPass.GUI
                 };
 
                 ShowPage(passwordPage);
+            }
+            else if (showHideButtonOnCancel)
+            {
+                buttonHidePage.Visibility = Visibility.Visible;
             }
         }
 
@@ -273,6 +279,14 @@ namespace NeqPass.GUI
             var page = new EditEntryPage(entry, true);
             page.Closed += () =>
             {
+                if (string.IsNullOrWhiteSpace(page.textBoxComment.Text)
+                && string.IsNullOrWhiteSpace(page.textBoxName.Text)
+                && string.IsNullOrWhiteSpace(page.textBoxUrl.Text))
+                {
+                    ShowError("Заполните хотя бы одно поле!");
+                    return;
+                }
+
                 ShowPage(null);
                 Entries.Add(entry);
                 entry.NeedSave += () => Save();
@@ -383,6 +397,20 @@ namespace NeqPass.GUI
                     }
                 }
 
+                if (list.SelectedItems.Count > 0 && e.Key == Key.Delete)
+                {
+                    if (MessageBox.Show("Точно удалить?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        List<EntryModel> entries = new List<EntryModel>();
+
+                        foreach (EntryModel element in list.SelectedItems)
+                            entries.Add(element);
+
+                        foreach (var entry in entries)
+                            Entries.Remove(entry);
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -395,12 +423,9 @@ namespace NeqPass.GUI
             MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private async void Save()
+        private void Save()
         {
-            //textStatus.Text = "Сохранение...";
             EntrySaver.Save(_fileName, ModelConverter.ConvertToSave(Entries), _password);
-            //await Task.Delay(100);
-            //textStatus.Text = "";
         }
     }
 }

@@ -27,7 +27,11 @@ namespace NeqPass.GUI.Pages
             if (!isNew)
                 textTitle.Text += Path.GetFileName(fileName);
             else
+            {
                 textTitle.Text = "Введите пароль для новой базы данных";
+                textNew.Visibility = Visibility.Visible;
+                textNew1.Visibility = Visibility.Visible;
+            }
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

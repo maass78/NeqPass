@@ -26,16 +26,19 @@ namespace NeqPass.Core
 
         public static void Save(string fileName, List<Entry> entries, string password)
         {
-            SymmetricCipher<AesCryptoServiceProvider> cipher = new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password));
+            var cipher = new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password));
 
             File.WriteAllBytes(fileName, cipher.Encrypt(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(entries))));
         }
+
+        public static byte[] Encrypt(byte[] bytes, string password) => new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password)).Encrypt(bytes);
+        public static byte[] Decrypt(byte[] bytes, string password) => new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password)).Decrypt(bytes);
 
         public static bool Load(string fileName, string password, out List<Entry> entries)
         {
             try
             {
-                SymmetricCipher<AesCryptoServiceProvider> cipher = new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password));
+                var cipher = new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password));
 
                 byte[] bytes = cipher.Decrypt(File.ReadAllBytes(fileName));
 

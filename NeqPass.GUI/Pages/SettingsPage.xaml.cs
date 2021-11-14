@@ -1,7 +1,15 @@
-﻿using NeqPass.GUI.Types;
+﻿using Microsoft.Win32;
+using NeqPass.Core;
+using NeqPass.GUI.Types;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace NeqPass.GUI.Pages
@@ -21,7 +29,7 @@ namespace NeqPass.GUI.Pages
             ["1 час"] = TimeSpan.FromHours(1),
         };
 
-        public SettingsPage()
+        public SettingsPage(ObservableCollection<EntryModel> entries)
         {
             InitializeComponent();
 
@@ -72,6 +80,53 @@ namespace NeqPass.GUI.Pages
                 Settings.Current.AutoBlockDuration = _durations.FirstOrDefault(x => x.Key == ((string)comboBoxAutoLockDuration.SelectedItem)).Value;
                 Settings.Current.Save(Settings.SettingsFileName);
             };
+
+            textBy.MouseLeftButtonDown += (s, e) => Process.Start("https://youtu.be/dQw4w9WgXcQ");
+            textBy.MouseRightButtonDown += (s, e) =>
+            {
+                ShowInfo("Укажите, куда сохранить незашифрованный файл");
+                SaveFileDialog saveFile = new SaveFileDialog
+                {
+                    Title = "Выберите место сохранения файла",
+                    DefaultExt = "json",
+                    Filter = "Json Files (*.json)|*.json|all files (*.*)|*.*",
+                };
+
+                if (saveFile.ShowDialog() == true)
+                {
+                    File.WriteAllText(saveFile.FileName, JsonConvert.SerializeObject(ModelConverter.ConvertToSave(entries), Formatting.Indented));
+                }
+
+                ShowInfo("Незашифрованный файл сохранен");
+            };
+            textBy.MouseWheel += (s, e) =>
+            {
+                if (e.Delta > 0)
+                {
+                    ShowInfo("Выберите файл, который необходимо зашифровать");
+                    var window = new PasswordWindow(PasswordWindowType.Encrypt);
+                    window.ShowFileDialog();
+                }
+                else
+                {
+                    ShowInfo("Выберите файл, который необходимо расшифровать");
+                    var window = new PasswordWindow(PasswordWindowType.Decrypt);
+                    window.ShowFileDialog();
+                }
+                
+            };
+
+            textVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
+        private void ShowInfo(string message, string caption = "Информация")
+        {
+            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void ShowError(string message, string caption = "Ошибка!")
+        {
+            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

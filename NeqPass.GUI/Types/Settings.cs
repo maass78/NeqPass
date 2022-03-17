@@ -17,8 +17,6 @@ namespace NeqPass.GUI.Types
         public bool AutoBlock { get; set; }
         public TimeSpan AutoBlockDuration { get; set; }
 
-        public string DefaultPassword { get; set; }
-
         public static Settings Current;
 
         public static Settings LoadFromFile(string fileName)
@@ -31,7 +29,6 @@ namespace NeqPass.GUI.Types
                     SavePath = false,
                     SavedPath = "",
                     AutoBlock = false,
-                    DefaultPassword = "",
                     AutoBlockDuration = TimeSpan.MaxValue
                 };
 
@@ -58,7 +55,5 @@ namespace NeqPass.GUI.Types
                 File.WriteAllText(fileName, JsonConvert.SerializeObject(this));
             }
         }
-
-
     }
 }

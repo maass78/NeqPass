@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -40,8 +41,6 @@ namespace NeqPass.GUI
             buttonAddAccount.Click += OnAddAccount;
             buttonAddEntry.Click += OnAddEntry;
             buttonDeleteEntry.Click += OnDeleteEntry;
-
-            textSearch.SizeChanged += (s, e) => textSearch.Visibility = textSearch.ActualWidth <= 35 ? Visibility.Hidden : Visibility.Visible;
 
             buttonEditEntry.Click += (s, e) => ShowPage(new EditEntryPage((EntryModel)list.SelectedItem, false));
             buttonHidePage.Click += (s, e) => ShowPage(null);
@@ -213,6 +212,18 @@ namespace NeqPass.GUI
                     DataContext = this;
 
                     Entries.CollectionChanged += (a, b) => Save();
+                    
+                    foreach (var entry in Entries)
+                    {
+                        entry.NeedSave += () => Save();
+                        entry.Accounts.CollectionChanged += (g, b) => Save();
+                        
+                        foreach (var account in entry.Accounts)
+                        {
+                            account.NeedSave += () => Save();
+                        }
+                    }
+
                     ShowPage(null);
                     buttonHidePage.Visibility = Visibility.Visible;
 
@@ -257,6 +268,8 @@ namespace NeqPass.GUI
 
             EntryModel selected = (EntryModel)list.SelectedItem;
             selected.Accounts.Add(acc);
+
+            Save();
 
             var control = new AccountControl(acc);
 
@@ -383,7 +396,6 @@ namespace NeqPass.GUI
                         ShowPage(null);
                     else
                         list.SelectedItem = null;
-
                 }
 
                 if (list.SelectedItem != null && Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -423,9 +435,9 @@ namespace NeqPass.GUI
             MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void Save()
+        private async void Save()
         {
-            EntrySaver.Save(_fileName, ModelConverter.ConvertToSave(Entries), _password);
+            await Task.Run(() => EntrySaver.Save(_fileName, ModelConverter.ConvertToSave(Entries), _password));
         }
     }
 }

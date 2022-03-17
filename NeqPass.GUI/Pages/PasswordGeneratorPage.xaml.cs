@@ -1,36 +1,21 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using UsefulExtensions;
 
 namespace NeqPass.GUI.Pages
 {
     public partial class PasswordGeneratorPage : Page
     {
-        private static readonly Random _random = new Random();
-        private static readonly string[] _specialSymbols = new string[]
-        {
-            "!",
-            ".",
-            ",",
-            ";",
-            "@",
-            "%",
-            "$",
-            "#",
-            "*",
-        };
-
         public PasswordGeneratorPage()
         {
+            var rngCrypto = new RNGCryptoServiceProvider();
+
             InitializeComponent();
             buttonGenerate.Click += (s, e) =>
             {
-                string result = RandomStringGenerator.AllSymbolsGenerator.Generate(10);
-
-                result = result.Insert(_random.Next(0, result.Length), _specialSymbols[_random.Next(_specialSymbols.Length)]);
-
-                textPassword.Text = result;
+                textPassword.Text = GetRandomString(10);
             };
 
             buttonCopy.Click += (s, e) =>
@@ -38,6 +23,25 @@ namespace NeqPass.GUI.Pages
                 if (!string.IsNullOrWhiteSpace(textPassword.Text))
                     Clipboard.SetText(textPassword.Text);
             };
+        }
+
+        private static string GetRandomString(int length)
+        {
+            const string dictionary = "!.,;@%$#*abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder sb = new StringBuilder();
+            using (RNGCryptoServiceProvider random = new RNGCryptoServiceProvider())
+            {
+                byte[] uintBuffer = new byte[sizeof(uint)];
+
+                while (length-- > 0)
+                {
+                    random.GetBytes(uintBuffer);
+                    uint num = BitConverter.ToUInt32(uintBuffer, 0);
+                    sb.Append(dictionary[(int)(num % (uint)dictionary.Length)]);
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

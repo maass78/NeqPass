@@ -79,6 +79,7 @@ namespace NeqPass.GUI.Pages
 
                     byte[] bytes = await wc.DownloadDataTaskAsync($"http://www.google.com/s2/favicons?domain={domain}");
                     _entry.IconBase64 = Convert.ToBase64String(bytes);
+                    MessageBox.Show("Иконка загружена!", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)

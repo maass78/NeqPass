@@ -50,6 +50,7 @@ namespace NeqPass.GUI
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action NeedSave;
+
         private void Notify(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

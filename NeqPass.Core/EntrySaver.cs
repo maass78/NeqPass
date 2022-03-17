@@ -11,6 +11,8 @@ namespace NeqPass.Core
 {
     public static class EntrySaver
     {
+        private static readonly object _lock = new object();
+
         private static SymmetricCipherParams GetParams(string password) 
         {
             return new SymmetricCipherParams()
@@ -26,13 +28,13 @@ namespace NeqPass.Core
 
         public static void Save(string fileName, List<Entry> entries, string password)
         {
-            var cipher = new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password));
+            lock (_lock)
+            {
+                var cipher = new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password));
 
-            File.WriteAllBytes(fileName, cipher.Encrypt(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(entries))));
+                File.WriteAllBytes(fileName, cipher.Encrypt(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(entries))));
+            }
         }
-
-        public static byte[] Encrypt(byte[] bytes, string password) => new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password)).Encrypt(bytes);
-        public static byte[] Decrypt(byte[] bytes, string password) => new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password)).Decrypt(bytes);
 
         public static bool Load(string fileName, string password, out List<Entry> entries)
         {
@@ -52,5 +54,14 @@ namespace NeqPass.Core
             }
         }
 
+        public static byte[] Encrypt(byte[] bytes, string password) 
+        {
+            return new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password)).Encrypt(bytes);
+        }
+
+        public static byte[] Decrypt(byte[] bytes, string password)
+        {
+            return new SymmetricCipher<AesCryptoServiceProvider>(GetParams(password)).Decrypt(bytes); 
+        }
     }
 }
